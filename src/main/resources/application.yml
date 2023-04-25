@@ -1,0 +1,4 @@
+app:
+  name: Swagger API - Pizzeria Don Remolo
+server:
+  port: 8080
