@@ -9,6 +9,8 @@ import jakarta.validation.constraints.Min;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,9 +24,10 @@ public class SubcategoryController {
     @Autowired
     private SubcategoryService subcategoryService;
 
+
     @GetMapping
     @ResponseBody
-    public PaginationResponse<SubcategoryResponse> getSubcategories(
+    public ResponseEntity<PaginationResponse<SubcategoryResponse>> getSubcategories(
             @RequestParam(name = "paginationKey", required = false, defaultValue = Constants.DEFAULT_PAGE_KEY)
             @Max(value = Constants.MAX_PAGE_KEY) @Min(value = 0)
             int paginationKey,
@@ -33,7 +36,8 @@ public class SubcategoryController {
             int pageSize
           ) {
         log.info("... running SubcategoryController.getSubcategories ...");
-        return subcategoryService.getCategories(paginationKey, pageSize);
+        PaginationResponse<SubcategoryResponse> response = subcategoryService.getCategories(paginationKey, pageSize);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 

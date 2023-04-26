@@ -1,6 +1,7 @@
 package com.franhc.pizzeria.remolo.v1.services.impl;
 
 import com.franhc.pizzeria.remolo.v1.models.Subcategory;
+import com.franhc.pizzeria.remolo.v1.payloads.dto.Pagination;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.PaginationResponse;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.SubcategoryResponse;
 import com.franhc.pizzeria.remolo.v1.repositories.SubcategoryRepository;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class SubcategoryService implements ISubcategoryService {
@@ -23,6 +26,7 @@ public class SubcategoryService implements ISubcategoryService {
     public PaginationResponse<SubcategoryResponse> getCategories(int paginationKey, int pageSize) {
         PageRequest page = PageRequest.of(paginationKey, pageSize);
         Page<Subcategory> subcategories = subcategoryRepository.findAll(page);
-        return SubcategoryMapper.INSTANCE.pageSubcategoryToPaginationResponse(subcategories);
+        List<SubcategoryResponse> subcategoryResponse = SubcategoryMapper.INSTANCE.pageSubcategoryToPaginationResponse(subcategories);
+        return new PaginationResponse<>(subcategoryResponse, new Pagination(subcategories));
     }
 }

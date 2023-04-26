@@ -39,9 +39,8 @@ public interface SubcategoryMapper {
     default List<SubcategoryResponse> subcategoryRequestToSubcategoryResponse(List<Subcategory> subcategories) {
         return subcategories.stream().filter(Objects::nonNull).map(this::subcategoryToSubcategoryResponse).collect(Collectors.toList());
     }
-    default PaginationResponse<SubcategoryResponse> pageSubcategoryToPaginationResponse(Page<Subcategory> subcategories) {
+    default List<SubcategoryResponse> pageSubcategoryToPaginationResponse(Page<Subcategory> subcategories) {
         List<Subcategory> content = subcategories.getTotalElements() > 0 ? subcategories.getContent() : Collections.emptyList();
-        List<SubcategoryResponse> subcategoryResponse = subcategoryRequestToSubcategoryResponse(content);
-        return new PaginationResponse<>(subcategoryResponse, new Pagination(subcategories.getNumber(), subcategories.getTotalPages(), subcategories.getTotalElements(), subcategories.getSize()));
+        return subcategoryRequestToSubcategoryResponse(content);
     }
 }
