@@ -4,9 +4,10 @@ import com.franhc.pizzeria.remolo.v1.exceptions.ResourceNotFoundException;
 import com.franhc.pizzeria.remolo.v1.models.Category;
 import com.franhc.pizzeria.remolo.v1.models.Subcategory;
 import com.franhc.pizzeria.remolo.v1.payloads.dto.CategoryDto;
-import com.franhc.pizzeria.remolo.v1.payloads.dto.MessageError;
+import com.franhc.pizzeria.remolo.v1.payloads.dto.Pagination;
 import com.franhc.pizzeria.remolo.v1.payloads.requests.CategoryRequest;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.CategoryResponse;
+import com.franhc.pizzeria.remolo.v1.payloads.responses.PaginationResponse;
 import com.franhc.pizzeria.remolo.v1.repositories.CategoryRepository;
 import com.franhc.pizzeria.remolo.v1.repositories.SubcategoryRepository;
 import com.franhc.pizzeria.remolo.v1.services.ICategoryService;
@@ -15,12 +16,13 @@ import com.franhc.pizzeria.remolo.v1.util.mappers.SubcategoryMapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -53,11 +55,12 @@ public class CategoryService implements ICategoryService {
 
     @Override
     @Transactional(readOnly = true)
-    public ResponseEntity<List<CategoryResponse>> getCategories() {
+    public PaginationResponse<CategoryResponse> getCategories(int paginationKey, int pageSize) {
         log.info("... running CategoryService.getCategories ...");
-        List<Category> categories = categoryRepository.findAll();
-        List<CategoryResponse> categoryResponse = CategoryMapper.INSTANCE.categoryListToCategoryResponseList(categories);
-        return new ResponseEntity<>(categoryResponse, HttpStatus.OK);
+        PageRequest page = PageRequest.of(paginationKey, pageSize);
+        Page<Category> categories = categoryRepository.findAll(page);
+        List<CategoryResponse> categoryResponse = CategoryMapper.INSTANCE.pageCategoryToPaginationResponse(categories);
+        return new PaginationResponse<>(categoryResponse, new Pagination(categories));
     }
 
     @Override

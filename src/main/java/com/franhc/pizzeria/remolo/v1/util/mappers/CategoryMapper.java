@@ -10,7 +10,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
+import org.springframework.data.domain.Page;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -35,6 +37,11 @@ public interface CategoryMapper {
 
     default List<CategoryResponse> categoryListToCategoryResponseList(List<Category> categories) {
         return categories.stream().filter(Objects::nonNull).map(this::categoryToCategoryResponse).collect(Collectors.toList());
+    }
+
+    default List<CategoryResponse> pageCategoryToPaginationResponse(Page<Category> categories) {
+        List<Category> content = categories.getTotalElements() > 0 ? categories.getContent() : Collections.emptyList();
+        return categoryListToCategoryResponseList(content);
     }
 
     @Mapping(target = "category.name", source = "categoryRequest.name")

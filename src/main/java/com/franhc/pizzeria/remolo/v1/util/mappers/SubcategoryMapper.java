@@ -2,9 +2,7 @@ package com.franhc.pizzeria.remolo.v1.util.mappers;
 
 import com.franhc.pizzeria.remolo.v1.models.Category;
 import com.franhc.pizzeria.remolo.v1.models.Subcategory;
-import com.franhc.pizzeria.remolo.v1.payloads.dto.Pagination;
 import com.franhc.pizzeria.remolo.v1.payloads.requests.SubcategoryRequest;
-import com.franhc.pizzeria.remolo.v1.payloads.responses.PaginationResponse;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.SubcategoryResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
