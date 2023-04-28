@@ -1,7 +1,7 @@
 package com.franhc.pizzeria.remolo.v1.controllers.impl;
 
 import com.franhc.pizzeria.remolo.v1.controllers.ISubcategoryController;
-import com.franhc.pizzeria.remolo.v1.payloads.responses.PaginationResponse;
+import com.franhc.pizzeria.remolo.v1.payloads.responses.pagination.PaginationResponse;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.SubcategoryResponse;
 import com.franhc.pizzeria.remolo.v1.services.impl.SubcategoryService;
 import org.apache.commons.logging.Log;

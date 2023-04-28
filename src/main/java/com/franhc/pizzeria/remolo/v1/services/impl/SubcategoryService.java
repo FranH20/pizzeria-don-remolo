@@ -2,7 +2,7 @@ package com.franhc.pizzeria.remolo.v1.services.impl;
 
 import com.franhc.pizzeria.remolo.v1.models.Subcategory;
 import com.franhc.pizzeria.remolo.v1.payloads.dto.Pagination;
-import com.franhc.pizzeria.remolo.v1.payloads.responses.PaginationResponse;
+import com.franhc.pizzeria.remolo.v1.payloads.responses.pagination.PaginationResponse;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.SubcategoryResponse;
 import com.franhc.pizzeria.remolo.v1.repositories.SubcategoryRepository;
 import com.franhc.pizzeria.remolo.v1.services.ISubcategoryService;

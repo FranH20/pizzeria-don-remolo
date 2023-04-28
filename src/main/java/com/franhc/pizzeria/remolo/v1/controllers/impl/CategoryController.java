@@ -4,7 +4,7 @@ import com.franhc.pizzeria.remolo.v1.controllers.ICategoryController;
 import com.franhc.pizzeria.remolo.v1.payloads.dto.CategoryDto;
 import com.franhc.pizzeria.remolo.v1.payloads.requests.CategoryRequest;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.CategoryResponse;
-import com.franhc.pizzeria.remolo.v1.payloads.responses.PaginationResponse;
+import com.franhc.pizzeria.remolo.v1.payloads.responses.pagination.PaginationResponse;
 import com.franhc.pizzeria.remolo.v1.services.impl.CategoryService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

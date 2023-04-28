@@ -1,4 +1,4 @@
-package com.franhc.pizzeria.remolo.v1.payloads.responses;
+package com.franhc.pizzeria.remolo.v1.payloads.responses.pagination;
 
 import com.franhc.pizzeria.remolo.v1.payloads.dto.Pagination;
 import jakarta.validation.Valid;
