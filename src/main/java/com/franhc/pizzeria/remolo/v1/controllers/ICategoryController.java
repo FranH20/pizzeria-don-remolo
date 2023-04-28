@@ -68,9 +68,21 @@ public interface ICategoryController {
             int pageSize
     );
 
+    @Operation(summary = "Update category", description = "Update a category.", tags = { Constants.CATEGORY_TAG })
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200", description = "Successful operation",
+                            content = { @Content(mediaType = "application/json" ,
+                                    schema = @Schema( implementation = CategoryResponse.class))
+                            }),
+                    @ApiResponse(responseCode = "400", description = "Bad Request",
+                            content = { @Content(mediaType = "application/json" ,
+                                    schema = @Schema( implementation = MessageError.class))})
+            })
     @PutMapping("/{category-id}")
     @ResponseStatus(HttpStatus.OK)
     ResponseEntity<CategoryResponse> updateCategory(
+            @Parameter(description = "Category identifier.")
             @NotNull @PathVariable("category-id") Long categoryId,
             @Valid @RequestBody CategoryDto categoryRequest);
 
