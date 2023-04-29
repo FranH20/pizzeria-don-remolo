@@ -14,4 +14,5 @@ public interface ICategoryService {
 
     ResponseEntity<CategoryResponse> updateCategory(Long categoryId, CategoryDto categoryRequest);
 
+    void deleteCategory(Long categoryId);
 }

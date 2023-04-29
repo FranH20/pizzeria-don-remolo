@@ -25,7 +25,7 @@ public class Category implements Serializable {
     private String name;
 
     @Valid
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Subcategory> subcategories;
 
     public List<Subcategory> getSubcategories() {

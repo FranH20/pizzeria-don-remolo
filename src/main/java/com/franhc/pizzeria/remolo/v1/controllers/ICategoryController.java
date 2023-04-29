@@ -18,6 +18,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -83,8 +84,24 @@ public interface ICategoryController {
     @ResponseStatus(HttpStatus.OK)
     ResponseEntity<CategoryResponse> updateCategory(
             @Parameter(description = "Category identifier.")
-            @NotNull @PathVariable("category-id") Long categoryId,
+            @NotNull @Positive @PathVariable("category-id") Long categoryId,
             @Valid @RequestBody CategoryDto categoryRequest);
 
 
+    @Operation(summary = "Delete category", description = "Delete one category by id.", tags = {Constants.CATEGORY_TAG})
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200", description = "Successful operation",
+                            content = { @Content(mediaType = "text") }
+                    ),
+                    @ApiResponse(responseCode = "409", description = "Conflict",
+                            content = { @Content(mediaType = "text")}
+                    )
+            }
+    )
+    @DeleteMapping("/{category-id}")
+    ResponseEntity<String> deleteCategory(
+            @Parameter(description = "The subcategory identifier.")
+            @Positive @NotNull @PathVariable("category-id")
+            Long id);
 }

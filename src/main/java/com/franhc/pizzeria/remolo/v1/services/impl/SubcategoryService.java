@@ -26,11 +26,18 @@ public class SubcategoryService implements ISubcategoryService {
 
     @Override
     @Transactional(readOnly = true)
-    public PaginationResponse<SubcategoryResponse> getCategories(int paginationKey, int pageSize) {
+    public PaginationResponse<SubcategoryResponse> getSubcategories(int paginationKey, int pageSize) {
         log.info("... running SubcategoryService.getCategories ...");
         PageRequest page = PageRequest.of(paginationKey, pageSize);
         Page<Subcategory> subcategories = subcategoryRepository.findAll(page);
         List<SubcategoryResponse> subcategoryResponse = SubcategoryMapper.INSTANCE.pageSubcategoryToPaginationResponse(subcategories);
         return new PaginationResponse<>(subcategoryResponse, new Pagination(subcategories));
+    }
+
+    @Override
+    @Transactional
+    public void deleteSubcategory(Long subcategoryId) {
+        log.info("... running SubcategoryService.deleteSubcategory ...");
+        subcategoryRepository.deleteById(subcategoryId);
     }
 }

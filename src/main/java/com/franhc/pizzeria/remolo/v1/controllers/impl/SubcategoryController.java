@@ -23,8 +23,15 @@ public class SubcategoryController implements ISubcategoryController {
     @Override
     public ResponseEntity<PaginationResponse<SubcategoryResponse>> getSubcategories(int paginationKey,int pageSize) {
         log.info("... running SubcategoryController.getSubcategories ...");
-        PaginationResponse<SubcategoryResponse> response = subcategoryService.getCategories(paginationKey, pageSize);
+        PaginationResponse<SubcategoryResponse> response = subcategoryService.getSubcategories(paginationKey, pageSize);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<String> deleteSubcategory(Long id) {
+        log.info("... running SubcategoryController.deleteSubcategory ...");
+        subcategoryService.deleteSubcategory(id);
+        return new ResponseEntity<>("Successful Operation", HttpStatus.OK);
     }
 
 

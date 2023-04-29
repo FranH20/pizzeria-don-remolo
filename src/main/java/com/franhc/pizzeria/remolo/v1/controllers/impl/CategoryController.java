@@ -40,4 +40,11 @@ public class CategoryController implements ICategoryController {
         log.info("... running CategoryController.updateCategory ...");
         return categoryService.updateCategory(categoryId, categoryRequest);
     }
+
+    @Override
+    public ResponseEntity<String> deleteCategory(Long id) {
+        log.info("... running CategoryController.updateCategory ...");
+        categoryService.deleteCategory(id);
+        return new ResponseEntity<>("Successful Operation", HttpStatus.OK);
+    }
 }

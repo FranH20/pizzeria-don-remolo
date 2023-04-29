@@ -73,5 +73,11 @@ public class CategoryService implements ICategoryService {
         return new ResponseEntity<>(categoryResponse, HttpStatus.OK);
     }
 
+    @Override
+    public void deleteCategory(Long categoryId) {
+        log.info("... running CategoryService.deleteCategory ...");
+        categoryRepository.deleteById(categoryId);
+    }
+
 
 }

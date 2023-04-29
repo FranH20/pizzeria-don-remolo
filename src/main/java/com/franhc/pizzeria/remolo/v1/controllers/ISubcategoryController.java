@@ -14,12 +14,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Validated
 @RequestMapping("api/v1/subcategories")
@@ -49,4 +48,21 @@ public interface ISubcategoryController {
             @Max(value = Constants.MAX_PAGE_SIZE) @Min(value = 0)
             int pageSize
     );
+
+    @Operation(summary = "Delete subcategories", description = "Delete one subcategory by id.", tags = {Constants.SUBCATEGORY_TAG})
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200", description = "Successful operation",
+                            content = { @Content(mediaType = "text") }
+                    ),
+                    @ApiResponse(responseCode = "409", description = "Conflict",
+                            content = { @Content(mediaType = "text")}
+                    )
+            }
+    )
+    @DeleteMapping("/{subcategory-id}")
+    ResponseEntity<String> deleteSubcategory(
+            @Parameter(description = "The subcategory identifier.")
+            @Positive @NotNull @PathVariable("subcategory-id")
+            Long id);
 }
