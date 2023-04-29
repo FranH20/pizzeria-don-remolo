@@ -1,6 +1,7 @@
 package com.franhc.pizzeria.remolo.v1.controllers;
 
 import com.franhc.pizzeria.remolo.v1.payloads.dto.MessageError;
+import com.franhc.pizzeria.remolo.v1.payloads.requests.SubcategoryRequest;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.SubcategoryResponse;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.pagination.PaginationResponse;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.pagination.SwaggerSubcategoryResponse;
@@ -12,10 +13,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -61,8 +64,28 @@ public interface ISubcategoryController {
             }
     )
     @DeleteMapping("/{subcategory-id}")
+    @ResponseStatus(HttpStatus.OK)
     ResponseEntity<String> deleteSubcategory(
             @Parameter(description = "The subcategory identifier.")
             @Positive @NotNull @PathVariable("subcategory-id")
             Long id);
+
+    @Operation(summary = "Update Subcategory", description = "Update a subcategory.", tags = { Constants.SUBCATEGORY_TAG })
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200", description = "Successful operation",
+                            content = { @Content(mediaType = "application/json" ,
+                                    schema = @Schema( implementation = SubcategoryResponse.class))
+                            }),
+                    @ApiResponse(responseCode = "400", description = "Bad Request",
+                            content = { @Content(mediaType = "application/json" ,
+                                    schema = @Schema( implementation = MessageError.class))})
+            })
+    @PutMapping("/{subcategory-id}")
+    @ResponseStatus(HttpStatus.OK)
+    ResponseEntity<SubcategoryResponse> updateSubcategory(
+            @Parameter(description = "Subcategory identifier.")
+            @NotNull @Positive @PathVariable("subcategory-id") Long subcategoryId,
+            @Valid @RequestBody SubcategoryRequest subcategoryRequest);
+
 }

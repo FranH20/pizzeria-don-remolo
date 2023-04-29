@@ -1,6 +1,7 @@
 package com.franhc.pizzeria.remolo.v1.controllers.impl;
 
 import com.franhc.pizzeria.remolo.v1.controllers.ISubcategoryController;
+import com.franhc.pizzeria.remolo.v1.payloads.requests.SubcategoryRequest;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.pagination.PaginationResponse;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.SubcategoryResponse;
 import com.franhc.pizzeria.remolo.v1.services.impl.SubcategoryService;
@@ -32,6 +33,11 @@ public class SubcategoryController implements ISubcategoryController {
         log.info("... running SubcategoryController.deleteSubcategory ...");
         subcategoryService.deleteSubcategory(id);
         return new ResponseEntity<>("Successful Operation", HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<SubcategoryResponse> updateSubcategory(Long subcategoryId, SubcategoryRequest subcategoryRequest) {
+        return subcategoryService.updateSubcategories(subcategoryId, subcategoryRequest);
     }
 
 

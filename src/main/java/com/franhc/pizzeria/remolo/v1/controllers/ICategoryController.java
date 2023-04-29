@@ -100,6 +100,7 @@ public interface ICategoryController {
             }
     )
     @DeleteMapping("/{category-id}")
+    @ResponseStatus(HttpStatus.OK)
     ResponseEntity<String> deleteCategory(
             @Parameter(description = "The subcategory identifier.")
             @Positive @NotNull @PathVariable("category-id")

@@ -6,6 +6,7 @@ import com.franhc.pizzeria.remolo.v1.payloads.requests.SubcategoryRequest;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.SubcategoryResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Page;
 
@@ -41,4 +42,7 @@ public interface SubcategoryMapper {
         List<Subcategory> content = subcategories.getTotalElements() > 0 ? subcategories.getContent() : Collections.emptyList();
         return subcategoryRequestToSubcategoryResponse(content);
     }
+
+    @Mapping(target = "name", source = "subcategoryRequest.name")
+    void mapSubcategoryRequestToSubcategory(@MappingTarget Subcategory subcategory, SubcategoryRequest subcategoryRequest);
 }
