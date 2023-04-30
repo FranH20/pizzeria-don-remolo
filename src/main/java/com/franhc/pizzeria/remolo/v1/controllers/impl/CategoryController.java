@@ -3,7 +3,9 @@ package com.franhc.pizzeria.remolo.v1.controllers.impl;
 import com.franhc.pizzeria.remolo.v1.controllers.ICategoryController;
 import com.franhc.pizzeria.remolo.v1.payloads.dto.CategoryDto;
 import com.franhc.pizzeria.remolo.v1.payloads.requests.CategoryRequest;
+import com.franhc.pizzeria.remolo.v1.payloads.requests.SubcategoryRequest;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.CategoryResponse;
+import com.franhc.pizzeria.remolo.v1.payloads.responses.SubcategoryPostResponse;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.pagination.PaginationResponse;
 import com.franhc.pizzeria.remolo.v1.services.impl.CategoryService;
 import org.apache.commons.logging.Log;
@@ -46,5 +48,11 @@ public class CategoryController implements ICategoryController {
         log.info("... running CategoryController.updateCategory ...");
         categoryService.deleteCategory(id);
         return new ResponseEntity<>("Successful Operation", HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<SubcategoryPostResponse> addSubcategoryWithinCategory(Long categoryId, SubcategoryRequest subcategoryRequest) {
+        log.info("... running CategoryController.addSubcategoryWithinCategory ...");
+        return categoryService.addSubcategoryWithinCategory(categoryId, subcategoryRequest);
     }
 }

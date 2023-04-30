@@ -6,7 +6,9 @@ import com.franhc.pizzeria.remolo.v1.models.Subcategory;
 import com.franhc.pizzeria.remolo.v1.payloads.dto.CategoryDto;
 import com.franhc.pizzeria.remolo.v1.payloads.dto.Pagination;
 import com.franhc.pizzeria.remolo.v1.payloads.requests.CategoryRequest;
+import com.franhc.pizzeria.remolo.v1.payloads.requests.SubcategoryRequest;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.CategoryResponse;
+import com.franhc.pizzeria.remolo.v1.payloads.responses.SubcategoryPostResponse;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.pagination.PaginationResponse;
 import com.franhc.pizzeria.remolo.v1.repositories.CategoryRepository;
 import com.franhc.pizzeria.remolo.v1.repositories.SubcategoryRepository;
@@ -74,9 +76,20 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
+    @Transactional
     public void deleteCategory(Long categoryId) {
         log.info("... running CategoryService.deleteCategory ...");
         categoryRepository.deleteById(categoryId);
+    }
+
+    @Override
+    @Transactional
+    public ResponseEntity<SubcategoryPostResponse> addSubcategoryWithinCategory(Long categoryId, SubcategoryRequest subcategoryRequest) {
+        log.info("... running CategoryService.addSubcategoryWithinCategory ...");
+        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category not found"));
+        Subcategory subcategory = SubcategoryMapper.INSTANCE.subcategoryRequestWithCategoryToSubcategory(category, subcategoryRequest);
+        SubcategoryPostResponse response = SubcategoryMapper.INSTANCE.subcategoryToSubcategoryPostResponse(subcategoryRepository.save(subcategory));
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
 

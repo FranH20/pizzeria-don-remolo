@@ -3,6 +3,7 @@ package com.franhc.pizzeria.remolo.v1.util.mappers;
 import com.franhc.pizzeria.remolo.v1.models.Category;
 import com.franhc.pizzeria.remolo.v1.models.Subcategory;
 import com.franhc.pizzeria.remolo.v1.payloads.requests.SubcategoryRequest;
+import com.franhc.pizzeria.remolo.v1.payloads.responses.SubcategoryPostResponse;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.SubcategoryResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -22,13 +23,13 @@ public interface SubcategoryMapper {
 
     @Mapping(target = "name", source = "subcategoryRequest.name")
     @Mapping(target = "category", source = "category")
-    Subcategory subcategoryRequestToSubcategory(Category category, SubcategoryRequest subcategoryRequest);
+    Subcategory subcategoryRequestWithCategoryToSubcategory(Category category, SubcategoryRequest subcategoryRequest);
 
 
     default List<Subcategory> addCategoryInSubcategory(Category category, List<SubcategoryRequest> subcategoryRequests) {
         return subcategoryRequests.stream()
                 .filter(Objects::nonNull)
-                .map(subcategoryRequest -> subcategoryRequestToSubcategory(category, subcategoryRequest)).collect(Collectors.toList());
+                .map(subcategoryRequest -> subcategoryRequestWithCategoryToSubcategory(category, subcategoryRequest)).collect(Collectors.toList());
     }
 
     @Mapping(target = "id", source = "subcategoryId")
@@ -45,4 +46,9 @@ public interface SubcategoryMapper {
 
     @Mapping(target = "name", source = "subcategoryRequest.name")
     void mapSubcategoryRequestToSubcategory(@MappingTarget Subcategory subcategory, SubcategoryRequest subcategoryRequest);
+
+    @Mapping(target = "id", source = "subcategoryId")
+    @Mapping(target = "name", source = "name")
+    @Mapping(target = "categoryId", source = "category.categoryId")
+    SubcategoryPostResponse subcategoryToSubcategoryPostResponse(Subcategory save);
 }

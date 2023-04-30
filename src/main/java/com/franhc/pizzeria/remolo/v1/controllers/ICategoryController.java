@@ -3,7 +3,9 @@ package com.franhc.pizzeria.remolo.v1.controllers;
 import com.franhc.pizzeria.remolo.v1.payloads.dto.CategoryDto;
 import com.franhc.pizzeria.remolo.v1.payloads.dto.MessageError;
 import com.franhc.pizzeria.remolo.v1.payloads.requests.CategoryRequest;
+import com.franhc.pizzeria.remolo.v1.payloads.requests.SubcategoryRequest;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.CategoryResponse;
+import com.franhc.pizzeria.remolo.v1.payloads.responses.SubcategoryPostResponse;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.pagination.PaginationResponse;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.pagination.SwaggerCategoryResponse;
 import com.franhc.pizzeria.remolo.v1.util.Constants;
@@ -105,4 +107,24 @@ public interface ICategoryController {
             @Parameter(description = "The subcategory identifier.")
             @Positive @NotNull @PathVariable("category-id")
             Long id);
+
+    @Operation(summary = "Create subcategory in category", description = "Create a new subcategory within a category.", tags = { Constants.CATEGORY_TAG })
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "201", description = "Successful operation",
+                            content = { @Content(mediaType = "application/json" ,
+                                    schema = @Schema( implementation = SubcategoryPostResponse.class ))
+                            }),
+                    @ApiResponse(responseCode = "400", description = "Bad Request",
+                            content = { @Content(mediaType = "application/json" ,
+                                    schema = @Schema( implementation = MessageError.class))})
+            })
+    @PostMapping("/{category-id}/subcategories")
+    ResponseEntity<SubcategoryPostResponse> addSubcategoryWithinCategory(
+            @Parameter(description = "The category identifier.")
+            @Positive @NotNull @PathVariable("category-id")
+            Long categoryId,
+            @Parameter(description = "The subcategory body.")
+            @Valid @RequestBody
+            SubcategoryRequest subcategoryRequest);
 }
