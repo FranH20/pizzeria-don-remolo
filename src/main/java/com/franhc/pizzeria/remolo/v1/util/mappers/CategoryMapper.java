@@ -24,6 +24,7 @@ public interface CategoryMapper {
 
 
     @Mapping(target = "name", source = "name")
+    @Mapping(target = "subcategories", ignore = true)
     Category categoryRequestToCategory(CategoryRequest categoryRequest);
 
 
