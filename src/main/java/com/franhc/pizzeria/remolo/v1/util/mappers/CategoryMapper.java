@@ -2,7 +2,7 @@ package com.franhc.pizzeria.remolo.v1.util.mappers;
 
 import com.franhc.pizzeria.remolo.v1.models.Category;
 import com.franhc.pizzeria.remolo.v1.models.Subcategory;
-import com.franhc.pizzeria.remolo.v1.payloads.dto.CategoryDto;
+import com.franhc.pizzeria.remolo.v1.payloads.dtos.basics.CategoryDto;
 import com.franhc.pizzeria.remolo.v1.payloads.requests.CategoryRequest;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.CategoryResponse;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.SubcategoryResponse;

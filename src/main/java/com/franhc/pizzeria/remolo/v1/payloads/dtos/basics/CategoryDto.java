@@ -1,4 +1,4 @@
-package com.franhc.pizzeria.remolo.v1.payloads.dto;
+package com.franhc.pizzeria.remolo.v1.payloads.dtos.basics;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;

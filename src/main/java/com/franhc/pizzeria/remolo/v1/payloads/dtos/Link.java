@@ -1,4 +1,4 @@
-package com.franhc.pizzeria.remolo.v1.payloads.dto;
+package com.franhc.pizzeria.remolo.v1.payloads.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,7 +1,7 @@
 package com.franhc.pizzeria.remolo.v1.controllers.impl;
 
 import com.franhc.pizzeria.remolo.v1.controllers.ICategoryController;
-import com.franhc.pizzeria.remolo.v1.payloads.dto.CategoryDto;
+import com.franhc.pizzeria.remolo.v1.payloads.dtos.basics.CategoryDto;
 import com.franhc.pizzeria.remolo.v1.payloads.requests.CategoryRequest;
 import com.franhc.pizzeria.remolo.v1.payloads.requests.SubcategoryRequest;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.CategoryResponse;

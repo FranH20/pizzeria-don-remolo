@@ -1,20 +1,20 @@
 package com.franhc.pizzeria.remolo.v1.payloads.responses;
 
+import com.franhc.pizzeria.remolo.v1.payloads.dtos.basics.CategoryDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
 import java.util.List;
 
 @Data
-public class CategoryResponse {
+@EqualsAndHashCode(callSuper = true)
+public class CategoryResponse extends CategoryDto {
 
     @Schema(example = "1")
     private Long id;
-
-    @Schema(example = "Bebida")
-    private String name;
 
     private List<SubcategoryResponse> subcategories;
 

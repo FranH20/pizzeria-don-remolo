@@ -1,23 +1,18 @@
 package com.franhc.pizzeria.remolo.v1.payloads.requests;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.franhc.pizzeria.remolo.v1.payloads.dtos.basics.CategoryDto;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
 import java.util.List;
 
 @Data
-public class CategoryRequest {
-
-    @Schema(example = "Bebida")
-    @NotBlank(message = "name must not be empty.")
-    @Size(min = 1, max = 80, message = "The body of the comment must have a maximum of 80 characters.")
-    private String name;
+@EqualsAndHashCode(callSuper = true)
+public class CategoryRequest extends CategoryDto {
 
     @Valid
     @NotNull(message = "List subcategories must not be null")

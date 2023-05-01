@@ -1,6 +1,6 @@
 package com.franhc.pizzeria.remolo.v1.controllers;
 
-import com.franhc.pizzeria.remolo.v1.payloads.dto.MessageError;
+import com.franhc.pizzeria.remolo.v1.payloads.dtos.MessageError;
 import com.franhc.pizzeria.remolo.v1.payloads.requests.SubcategoryRequest;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.SubcategoryResponse;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.pagination.PaginationResponse;
