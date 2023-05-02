@@ -37,7 +37,9 @@ public class SubcategoryController implements ISubcategoryController {
 
     @Override
     public ResponseEntity<SubcategoryResponse> updateSubcategory(Long subcategoryId, SubcategoryRequest subcategoryRequest) {
-        return subcategoryService.updateSubcategories(subcategoryId, subcategoryRequest);
+        log.info("... running SubcategoryController.updateSubcategory ...");
+        SubcategoryResponse response = subcategoryService.updateSubcategories(subcategoryId, subcategoryRequest);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 

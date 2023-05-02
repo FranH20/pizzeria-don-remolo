@@ -3,8 +3,8 @@ package com.franhc.pizzeria.remolo.v1.services.impl;
 import com.franhc.pizzeria.remolo.v1.exceptions.ResourceNotFoundException;
 import com.franhc.pizzeria.remolo.v1.models.Category;
 import com.franhc.pizzeria.remolo.v1.models.Subcategory;
-import com.franhc.pizzeria.remolo.v1.payloads.dtos.basics.CategoryDto;
 import com.franhc.pizzeria.remolo.v1.payloads.dtos.Pagination;
+import com.franhc.pizzeria.remolo.v1.payloads.dtos.basics.CategoryDto;
 import com.franhc.pizzeria.remolo.v1.payloads.requests.CategoryRequest;
 import com.franhc.pizzeria.remolo.v1.payloads.requests.SubcategoryRequest;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.CategoryResponse;
@@ -20,8 +20,6 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,7 +38,7 @@ public class CategoryService implements ICategoryService {
 
     @Override
     @Transactional
-    public ResponseEntity<CategoryResponse> addCategory(CategoryRequest categoryRequest) {
+    public CategoryResponse addCategory(CategoryRequest categoryRequest) {
         log.info("... running CategoryService.addCategory ...");
         // Save the category
         Category category = CategoryMapper.INSTANCE.categoryRequestToCategory(categoryRequest);
@@ -51,8 +49,7 @@ public class CategoryService implements ICategoryService {
         // Set the subcategories in category entity
         newCategory.setSubcategories(subcategories);
         // Mapping the response of the category
-        CategoryResponse categoryResponse = CategoryMapper.INSTANCE.categoryToCategoryResponse(newCategory);
-        return new ResponseEntity<>(categoryResponse, HttpStatus.CREATED);
+        return CategoryMapper.INSTANCE.categoryToCategoryResponse(newCategory);
     }
 
     @Override
@@ -67,12 +64,11 @@ public class CategoryService implements ICategoryService {
 
     @Override
     @Transactional
-    public ResponseEntity<CategoryResponse> updateCategory(Long categoryId, CategoryDto categoryRequest) {
+    public CategoryResponse updateCategory(Long categoryId, CategoryDto categoryRequest) {
         log.info("... running CategoryService.updateCategory ...");
         Category foundCategory = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category not found."));
         CategoryMapper.INSTANCE.mapCategoryDtoToCategory(foundCategory, categoryRequest);
-        CategoryResponse categoryResponse = CategoryMapper.INSTANCE.categoryToCategoryResponse(categoryRepository.save(foundCategory));
-        return new ResponseEntity<>(categoryResponse, HttpStatus.OK);
+        return CategoryMapper.INSTANCE.categoryToCategoryResponse(categoryRepository.save(foundCategory));
     }
 
     @Override
@@ -84,12 +80,11 @@ public class CategoryService implements ICategoryService {
 
     @Override
     @Transactional
-    public ResponseEntity<SubcategoryPostResponse> addSubcategoryWithinCategory(Long categoryId, SubcategoryRequest subcategoryRequest) {
+    public SubcategoryPostResponse addSubcategoryWithinCategory(Long categoryId, SubcategoryRequest subcategoryRequest) {
         log.info("... running CategoryService.addSubcategoryWithinCategory ...");
         Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category not found"));
         Subcategory subcategory = SubcategoryMapper.INSTANCE.subcategoryRequestWithCategoryToSubcategory(category, subcategoryRequest);
-        SubcategoryPostResponse response = SubcategoryMapper.INSTANCE.subcategoryToSubcategoryPostResponse(subcategoryRepository.save(subcategory));
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        return SubcategoryMapper.INSTANCE.subcategoryToSubcategoryPostResponse(subcategoryRepository.save(subcategory));
     }
 
 

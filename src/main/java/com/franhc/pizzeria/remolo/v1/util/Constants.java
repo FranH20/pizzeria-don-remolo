@@ -20,4 +20,7 @@ public class Constants {
 
     public static final String SUBCATEGORY_TAG = "subcategory";
 
+    public static final String PATH = "src/test/resources/JSONObjects/";
+
+
 }

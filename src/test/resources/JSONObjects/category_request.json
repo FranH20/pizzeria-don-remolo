@@ -1,0 +1,11 @@
+{
+  "name": "Comida chatarra.",
+  "subcategories": [
+    {
+      "name": "Hamburguesa"
+    },
+    {
+      "name": "Pizzas"
+    }
+  ]
+}

@@ -14,8 +14,6 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,10 +44,9 @@ public class SubcategoryService implements ISubcategoryService {
     }
 
     @Override
-    public ResponseEntity<SubcategoryResponse> updateSubcategories(Long subcategoryId, SubcategoryRequest subcategoryRequest) {
+    public SubcategoryResponse updateSubcategories(Long subcategoryId, SubcategoryRequest subcategoryRequest) {
         Subcategory subcategory = subcategoryRepository.findById(subcategoryId).orElseThrow( () -> new ResourceNotFoundException("Subategory not found."));
         SubcategoryMapper.INSTANCE.mapSubcategoryRequestToSubcategory(subcategory, subcategoryRequest);
-        SubcategoryResponse subcategoryResponse = SubcategoryMapper.INSTANCE.subcategoryToSubcategoryResponse(subcategoryRepository.save(subcategory));
-        return new ResponseEntity<>(subcategoryResponse, HttpStatus.OK);
+        return SubcategoryMapper.INSTANCE.subcategoryToSubcategoryResponse(subcategoryRepository.save(subcategory));
     }
 }

@@ -13,7 +13,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
@@ -27,7 +27,8 @@ public class CategoryController implements ICategoryController {
     @Override
     public ResponseEntity<CategoryResponse> addCategory(CategoryRequest categoryRequest) {
         log.info("... running CategoryController.addCategory ...");
-        return categoryService.addCategory(categoryRequest);
+        CategoryResponse categoryResponse = categoryService.addCategory(categoryRequest);
+        return new ResponseEntity<>(categoryResponse, HttpStatus.CREATED);
     }
 
     @Override
@@ -40,7 +41,8 @@ public class CategoryController implements ICategoryController {
     @Override
     public ResponseEntity<CategoryResponse> updateCategory(Long categoryId, CategoryDto categoryRequest) {
         log.info("... running CategoryController.updateCategory ...");
-        return categoryService.updateCategory(categoryId, categoryRequest);
+        CategoryResponse response = categoryService.updateCategory(categoryId, categoryRequest);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @Override
@@ -53,6 +55,7 @@ public class CategoryController implements ICategoryController {
     @Override
     public ResponseEntity<SubcategoryPostResponse> addSubcategoryWithinCategory(Long categoryId, SubcategoryRequest subcategoryRequest) {
         log.info("... running CategoryController.addSubcategoryWithinCategory ...");
-        return categoryService.addSubcategoryWithinCategory(categoryId, subcategoryRequest);
+        SubcategoryPostResponse response = categoryService.addSubcategoryWithinCategory(categoryId, subcategoryRequest);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

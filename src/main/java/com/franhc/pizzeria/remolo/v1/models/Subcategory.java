@@ -20,7 +20,7 @@ public class Subcategory implements Serializable {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "categoryId", nullable = false)
+    @JoinColumn(name = "categoryId", nullable = true)
     private Category category;
 
     @OneToMany(mappedBy = "subcategory")
