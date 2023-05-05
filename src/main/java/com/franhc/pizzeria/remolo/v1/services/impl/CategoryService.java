@@ -13,6 +13,7 @@ import com.franhc.pizzeria.remolo.v1.payloads.responses.pagination.PaginationRes
 import com.franhc.pizzeria.remolo.v1.repositories.CategoryRepository;
 import com.franhc.pizzeria.remolo.v1.repositories.SubcategoryRepository;
 import com.franhc.pizzeria.remolo.v1.services.ICategoryService;
+import com.franhc.pizzeria.remolo.v1.util.Errors;
 import com.franhc.pizzeria.remolo.v1.util.mappers.CategoryMapper;
 import com.franhc.pizzeria.remolo.v1.util.mappers.SubcategoryMapper;
 import org.apache.commons.logging.Log;
@@ -66,7 +67,7 @@ public class CategoryService implements ICategoryService {
     @Transactional
     public CategoryResponse updateCategory(Long categoryId, CategoryDto categoryRequest) {
         log.info("... running CategoryService.updateCategory ...");
-        Category foundCategory = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category not found"));
+        Category foundCategory = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException(Errors.CATEGORY_NOT_FOUND));
         CategoryMapper.INSTANCE.mapCategoryDtoToCategory(foundCategory, categoryRequest);
         return CategoryMapper.INSTANCE.categoryToCategoryResponse(categoryRepository.save(foundCategory));
     }
@@ -75,6 +76,8 @@ public class CategoryService implements ICategoryService {
     @Transactional
     public void deleteCategory(Long categoryId) {
         log.info("... running CategoryService.deleteCategory ...");
+        if (categoryRepository.findById(categoryId).isEmpty())
+            throw new ResourceNotFoundException(Errors.CATEGORY_NOT_FOUND);
         categoryRepository.deleteById(categoryId);
     }
 
@@ -82,7 +85,7 @@ public class CategoryService implements ICategoryService {
     @Transactional
     public SubcategoryPostResponse addSubcategoryWithinCategory(Long categoryId, SubcategoryRequest subcategoryRequest) {
         log.info("... running CategoryService.addSubcategoryWithinCategory ...");
-        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category not found"));
+        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException(Errors.CATEGORY_NOT_FOUND));
         Subcategory subcategory = SubcategoryMapper.INSTANCE.subcategoryRequestWithCategoryToSubcategory(category, subcategoryRequest);
         return SubcategoryMapper.INSTANCE.subcategoryToSubcategoryPostResponse(subcategoryRepository.save(subcategory));
     }

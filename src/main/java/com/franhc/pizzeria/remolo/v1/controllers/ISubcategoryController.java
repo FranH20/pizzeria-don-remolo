@@ -56,11 +56,13 @@ public interface ISubcategoryController {
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200", description = "Successful operation",
-                            content = { @Content(mediaType = "text") }
+                            content = @Content
                     ),
                     @ApiResponse(responseCode = "409", description = "Conflict",
-                            content = { @Content(mediaType = "text")}
-                    )
+                            content = @Content
+                    ),
+                    @ApiResponse(responseCode = "404", description = "Not found",
+                            content = @Content)
             }
     )
     @DeleteMapping("/{subcategory-id}")
@@ -79,7 +81,9 @@ public interface ISubcategoryController {
                             }),
                     @ApiResponse(responseCode = "400", description = "Bad Request",
                             content = { @Content(mediaType = "application/json" ,
-                                    schema = @Schema( implementation = MessageError.class))})
+                                    schema = @Schema( implementation = MessageError.class))}),
+                    @ApiResponse(responseCode = "404", description = "Not found",
+                            content = { @Content(mediaType = "application/json")})
             })
     @PutMapping("/{subcategory-id}")
     @ResponseStatus(HttpStatus.OK)

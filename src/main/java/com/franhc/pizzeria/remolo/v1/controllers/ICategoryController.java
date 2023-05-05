@@ -1,7 +1,7 @@
 package com.franhc.pizzeria.remolo.v1.controllers;
 
-import com.franhc.pizzeria.remolo.v1.payloads.dtos.basics.CategoryDto;
 import com.franhc.pizzeria.remolo.v1.payloads.dtos.MessageError;
+import com.franhc.pizzeria.remolo.v1.payloads.dtos.basics.CategoryDto;
 import com.franhc.pizzeria.remolo.v1.payloads.requests.CategoryRequest;
 import com.franhc.pizzeria.remolo.v1.payloads.requests.SubcategoryRequest;
 import com.franhc.pizzeria.remolo.v1.payloads.responses.CategoryResponse;
@@ -80,7 +80,9 @@ public interface ICategoryController {
                             }),
                     @ApiResponse(responseCode = "400", description = "Bad Request",
                             content = { @Content(mediaType = "application/json" ,
-                                    schema = @Schema( implementation = MessageError.class))})
+                                    schema = @Schema( implementation = MessageError.class))}),
+                    @ApiResponse(responseCode = "404", description = "Not found",
+                            content = { @Content(mediaType = "application/json")})
             })
     @PutMapping("/{category-id}")
     @ResponseStatus(HttpStatus.OK)
@@ -94,17 +96,19 @@ public interface ICategoryController {
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200", description = "Successful operation",
-                            content = { @Content(mediaType = "text") }
+                            content = @Content
                     ),
                     @ApiResponse(responseCode = "409", description = "Conflict",
-                            content = { @Content(mediaType = "text")}
-                    )
+                            content = @Content
+                    ),
+                    @ApiResponse(responseCode = "404", description = "Not found",
+                            content = @Content)
             }
     )
     @DeleteMapping("/{category-id}")
     @ResponseStatus(HttpStatus.OK)
     ResponseEntity<String> deleteCategory(
-            @Parameter(description = "The subcategory identifier.")
+            @Parameter(description = "The category identifier.")
             @Positive @NotNull @PathVariable("category-id")
             Long id);
 
@@ -117,7 +121,9 @@ public interface ICategoryController {
                             }),
                     @ApiResponse(responseCode = "400", description = "Bad Request",
                             content = { @Content(mediaType = "application/json" ,
-                                    schema = @Schema( implementation = MessageError.class))})
+                                    schema = @Schema( implementation = MessageError.class))}),
+                    @ApiResponse(responseCode = "404", description = "Not found",
+                            content = { @Content(mediaType = "application/json")})
             })
     @PostMapping("/{category-id}/subcategories")
     ResponseEntity<SubcategoryPostResponse> addSubcategoryWithinCategory(

@@ -76,6 +76,7 @@ class CategoryServiceTest {
 
     @Test
     void deleteCategoryTest() {
+        when(categoryRepository.findById(anyLong())).thenReturn(Optional.of(new Category()));
         categoryService.deleteCategory(1L);
         verify(categoryRepository).deleteById(anyLong());
     }

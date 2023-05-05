@@ -43,6 +43,7 @@ class SubcategoryServiceTest {
 
     @Test
     void deleteSubcategoryTest() {
+        when(subcategoryRepository.findById(anyLong())).thenReturn(Optional.of(new Subcategory()));
         subcategoryService.deleteSubcategory(1L);
         verify(subcategoryRepository).deleteById(anyLong());
     }
