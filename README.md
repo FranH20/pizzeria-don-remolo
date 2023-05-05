@@ -20,3 +20,6 @@ conocer su total, y recibir confirmación del local.
 ```sh
 https://wa.me/5124234234234234?text=Hola,%20estoy%20interesado%20el%20producto,%20quisiera%20una%20porción
 ```
+
+## Entidad relacion propuesto
+![Imagen de entidad relacion de la base de datos.](docs/images/db_er_pizzeria_remolo.png)
