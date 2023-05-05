@@ -23,6 +23,7 @@ import java.util.List;
 public class SubcategoryService implements ISubcategoryService {
 
     private final Log log = LogFactory.getLog(SubcategoryService.class);
+
     @Autowired
     private SubcategoryRepository subcategoryRepository;
 
@@ -44,8 +45,9 @@ public class SubcategoryService implements ISubcategoryService {
     }
 
     @Override
+    @Transactional
     public SubcategoryResponse updateSubcategories(Long subcategoryId, SubcategoryRequest subcategoryRequest) {
-        Subcategory subcategory = subcategoryRepository.findById(subcategoryId).orElseThrow( () -> new ResourceNotFoundException("Subategory not found."));
+        Subcategory subcategory = subcategoryRepository.findById(subcategoryId).orElseThrow( () -> new ResourceNotFoundException("Subcategory not found"));
         SubcategoryMapper.INSTANCE.mapSubcategoryRequestToSubcategory(subcategory, subcategoryRequest);
         return SubcategoryMapper.INSTANCE.subcategoryToSubcategoryResponse(subcategoryRepository.save(subcategory));
     }

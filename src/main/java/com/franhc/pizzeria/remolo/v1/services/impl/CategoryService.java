@@ -66,7 +66,7 @@ public class CategoryService implements ICategoryService {
     @Transactional
     public CategoryResponse updateCategory(Long categoryId, CategoryDto categoryRequest) {
         log.info("... running CategoryService.updateCategory ...");
-        Category foundCategory = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category not found."));
+        Category foundCategory = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category not found"));
         CategoryMapper.INSTANCE.mapCategoryDtoToCategory(foundCategory, categoryRequest);
         return CategoryMapper.INSTANCE.categoryToCategoryResponse(categoryRepository.save(foundCategory));
     }
