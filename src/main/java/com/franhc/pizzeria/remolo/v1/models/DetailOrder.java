@@ -1,7 +1,6 @@
 package com.franhc.pizzeria.remolo.v1.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Digits;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -17,16 +16,13 @@ public class DetailOrder implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long detailOrderId;
 
-    @Column(name = "amount", nullable = false)
-    @Digits(integer = 5, fraction = 1)
-    private Double amount;
+    @Column(name = "amount", nullable = false, precision = 5, scale = 2)
+    private BigDecimal amount;
 
-    @Column(name = "unit_price", nullable = false)
-    @Digits(integer = 5, fraction = 2)
+    @Column(name = "unit_price", nullable = false, precision = 5, scale = 2)
     private BigDecimal unitPrice;
 
-    @Column(name = "total_price", nullable = false)
-    @Digits(integer = 10, fraction = 2)
+    @Column(name = "total_price", nullable = false, precision = 10, scale = 2)
     private BigDecimal totalPrice;
 
     @ManyToOne

@@ -2,3 +2,16 @@ app:
   name: Swagger API - Pizzeria Don Remolo
 server:
   port: 8080
+  error:
+    include-message: always
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true
+    show-sql: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_pizzeria_don_remolo
+    username: root
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver

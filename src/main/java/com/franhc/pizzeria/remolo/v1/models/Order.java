@@ -27,8 +27,8 @@ public class Order implements Serializable {
     private BigDecimal totalAmount;
 
     @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
-    private User user;
+    @JoinColumn(name = "clientId", nullable = false)
+    private Client client;
 
     @OneToMany(mappedBy = "order")
     private Set<DetailOrder> detailOrders;

@@ -1,7 +1,6 @@
 package com.franhc.pizzeria.remolo.v1.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Digits;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -24,12 +23,10 @@ public class Product implements Serializable {
     @Column(name = "description", length = 240)
     private String description;
 
-    @Column(name = "price", nullable = false)
-    @Digits(integer = 5, fraction = 2)
+    @Column(name = "price", nullable = false, precision = 5, scale = 2)
     private BigDecimal price;
 
-    @Column(name = "stock", nullable = false)
-    @Digits(integer = 5, fraction = 1)
+    @Column(name = "stock", nullable = false, precision = 5)
     private Double stock;
 
     @ManyToOne

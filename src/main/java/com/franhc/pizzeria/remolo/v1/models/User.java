@@ -1,37 +1,72 @@
 package com.franhc.pizzeria.remolo.v1.models;
 
+import com.franhc.pizzeria.remolo.v1.models.enums.Role;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
+
 
 @Data
 @Entity
+@Builder
 @Table(name = "users")
-public class User implements Serializable {
+@AllArgsConstructor
+@NoArgsConstructor
+public class User implements Serializable, UserDetails {
 
     @Id
     @Column(name = "user_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @Column(name = "code_number", nullable = false, unique = true)
-    @Digits(integer = 10, fraction = 0)
-    private Integer codeNumber;
-
-    @Column(name = "full_name", length = 100)
-    private String fullName;
-
-    @Column(name = "username", length = 50, unique = true)
+    @NotBlank
+    @Column(name = "username", length = 120, nullable = false, unique = true)
     private String username;
 
-    @Email
-    @Column(name = "email", length = 80, unique = true)
-    private String email;
+    @NotBlank
+    @Column(name = "password", length = 250, nullable = false)
+    private String password;
 
-    @OneToMany(mappedBy = "user")
-    private List<Order> order;
+    @Column(name = "firstname", length = 250)
+    private String firstname;
+
+    @Column(name = "lastname", length = 250)
+    private String lastname;
+
+    @Column(name = "country", length = 100)
+    private String country;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority((role.name())));
+    }
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
